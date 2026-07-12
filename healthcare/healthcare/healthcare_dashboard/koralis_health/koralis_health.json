@@ -41,7 +41,7 @@
   }
  ],
  "creation": "2020-07-14 18:17:54.823311",
- "dashboard_name": "Healthcare",
+ "dashboard_name": "Koralis Health",
  "docstatus": 0,
  "doctype": "Dashboard",
  "idx": 0,
@@ -50,6 +50,6 @@
  "modified": "2026-07-10 14:46:48.840548",
  "modified_by": "Administrator",
  "module": "Healthcare",
- "name": "Healthcare",
+ "name": "Koralis Health",
  "owner": "Administrator"
 }
