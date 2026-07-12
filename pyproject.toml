@@ -1,8 +1,8 @@
 [project]
 name = "healthcare"
-description = "Modern, Open Source HIS built on Frappe and ERPNext"
+description = "Koralis Health — Système d'Information Hospitalier open source basé sur Frappe et ERPNext"
 authors = [
-    { name = "earthians Health Informatics Pvt. Ltd.", email = "info@earthianslive.com" },
+    { name = "KONE Fousseni", email = "konefousseni66@gmail.com" },
 ]
 readme = "README.md"
 requires-python = ">=3.10"
