@@ -2,7 +2,7 @@
  "app": "healthcare",
  "charts": [],
  "content": "[{\"id\":\"ed_header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Emergency Department</span>\",\"col\":12}},{\"id\":\"ed_sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Active Emergencies\",\"col\":3}},{\"id\":\"ed_sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Triage Queue\",\"col\":3}},{\"id\":\"ed_sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Emergency Beds\",\"col\":3}},{\"id\":\"ed_spacer\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ed_card1\",\"type\":\"card\",\"data\":{\"card_name\":\"Emergency\",\"col\":4}},{\"id\":\"ed_card3\",\"type\":\"card\",\"data\":{\"card_name\":\"Clinical\",\"col\":4}},{\"id\":\"ed_card2\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
- "creation": "2026-06-16 00:00:00.000000",
+ "creation": "2026-06-16 00:00:00",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -11,7 +11,7 @@
  "icon": "heartbeat",
  "idx": 0,
  "indicator_color": "red",
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Emergency",
  "links": [
   {
@@ -95,13 +95,14 @@
    "hidden": 0,
    "is_query_report": 1,
    "label": "Emergency Triage Queue",
+   "link_count": 0,
    "link_to": "Emergency Triage Queue",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2026-06-16 16:05:04.000175",
+ "modified": "2026-07-10 11:59:24.571444",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Emergency",
@@ -126,6 +127,7 @@
    "doc_view": "",
    "label": "Triage Queue",
    "link_to": "Emergency Triage Queue",
+   "report_ref_doctype": "Emergency Record",
    "type": "Report"
   },
   {

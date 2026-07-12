@@ -4,9 +4,6 @@
    "card": "Total Patients"
   },
   {
-   "card": "Total Patients Admitted"
-  },
-  {
    "card": "Open Appointments"
   },
   {
@@ -17,10 +14,6 @@
   {
    "chart": "Patient Appointments",
    "width": "Full"
-  },
-  {
-   "chart": "In-Patient Status",
-   "width": "Half"
   },
   {
    "chart": "Clinical Procedures Status",
@@ -54,7 +47,7 @@
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2025-06-04 12:05:44.692426",
+ "modified": "2026-07-10 14:46:48.840548",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare",

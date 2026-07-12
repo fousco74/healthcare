@@ -16,7 +16,7 @@
  "icon": "heart-handshake",
  "idx": 0,
  "indicator_color": "green",
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Insurance",
  "link_type": "DocType",
  "links": [
@@ -128,7 +128,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-11-23 20:17:55.487201",
+ "modified": "2026-07-10 12:00:02.454044",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Insurance",

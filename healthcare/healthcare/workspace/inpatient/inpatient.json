@@ -20,7 +20,7 @@
  "icon": "bed",
  "idx": 0,
  "indicator_color": "green",
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Inpatient",
  "link_type": "DocType",
  "links": [
@@ -250,7 +250,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-11-23 20:35:48.741354",
+ "modified": "2026-07-10 11:59:35.743608",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Inpatient",

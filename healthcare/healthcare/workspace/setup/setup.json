@@ -11,7 +11,7 @@
  "icon": "setting",
  "idx": 0,
  "indicator_color": "green",
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Setup",
  "link_type": "DocType",
  "links": [
@@ -449,7 +449,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-09-15 16:34:37.722704",
+ "modified": "2026-07-10 11:59:47.189084",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Setup",

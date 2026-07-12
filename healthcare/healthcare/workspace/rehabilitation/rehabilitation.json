@@ -16,7 +16,7 @@
  "icon": "hand-heart",
  "idx": 0,
  "indicator_color": "green",
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Rehabilitation",
  "link_type": "DocType",
  "links": [
@@ -235,7 +235,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-11-23 20:18:29.529500",
+ "modified": "2026-07-10 12:00:09.568089",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Rehabilitation",

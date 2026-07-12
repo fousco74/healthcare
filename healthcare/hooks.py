@@ -1,10 +1,10 @@
-app_name = "healthcare"
-app_title = "Marley Health"
-app_publisher = "earthians Health Informatics Pvt. Ltd."
-app_description = "Modern, Open Source HIS built on Frappe and ERPNext"
+app_name = "Koralis Health"
+app_title = "Koralis Health"
+app_publisher = "KONE Fousseni"
+app_description = "Koralis Health — Système d'Information Hospitalier open source basé sur Frappe et ERPNext"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
-app_email = "info@earthianslive.com"
+app_email = "konefousseni66@gmail.com"
 app_license = "GNU GPL V3"
 required_apps = ["frappe/erpnext"]
 app_home = "/desk/healthcare"
@@ -12,7 +12,7 @@ app_home = "/desk/healthcare"
 add_to_apps_screen = [
 	{
 		"name": app_name,
-		"logo": "/assets/healthcare/images/healthcare.svg",
+		"logo": "/assets/healthcare/images/koralis_health.svg",
 		"title": app_title,
 		"route": app_home,
 		"has_permission": "erpnext.check_app_permission",
@@ -289,9 +289,9 @@ standard_queries = {
 }
 
 treeviews = [
-	"Healthcare Service Unit",
+	"Koralis Health Service Unit",
 ]
 
 company_data_to_be_ignored = [
-	"Healthcare Service Unit",
+	"Koralis Health Service Unit",
 ]
