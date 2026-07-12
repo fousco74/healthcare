@@ -135,7 +135,7 @@
 					</div>
 					<div v-if="success" class="flex flex-col items-center justify-center h-[99%] text-center space-y-4 animate-fade-in">
 						<FeatherIcon name="check-circle" class="text-green-500 w-20 h-20" />
-						<h2 class="text-xl font-semibold text-brand">{{ __('Payment Successful') }}</h2>
+						<h2 class="text-xl font-semibold text-brand">{{ __('Booking confirmed') }}</h2>
 						<p class="text-gray-600">{{ __('Your appointment with {0} has been confirmed.', [selectedPractitioner.practitioner_name]) }}</p>
 					</div>
 				</div>
