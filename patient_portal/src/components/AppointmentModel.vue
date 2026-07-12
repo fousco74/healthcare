@@ -3,7 +3,8 @@
 		<div class="flex justify-end m-2">
 			<Button
 				variant="solid"
-				:label="'Book'"
+				class="hc-btn-primary"
+				:label="__('Book')"
 				@click="make_appointment_dialog = true"
 			>
 				<template #prefix>
@@ -13,38 +14,62 @@
 		</div>
 		<div class="py-4 relative min-h-[75vh] flex flex-col">
 			<!-- Appointment Grid -->
-			<div 
+			<div
 				v-if="paginatedAppointments.length"
 				class="flex-1 overflow-y-auto p-2">
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 					<Card
 						v-for="item in paginatedAppointments"
 						:key="item.name"
-						class="cursor-pointer rounded-xl border border-gray-200 transition-transform
-							hover:scale-105 duration-200 hover:drop-shadow-md p-2 bg-suface-white
-							min-h-[170px] min-w-[240px] !shadow-none drop-shadow-xl"
+						class="hc-card hc-appt-card cursor-pointer min-h-[184px] min-w-[240px]"
+						:style="{ '--accent': statusAccent(item.status) }"
 						@click="appointmentDetails(item)"
 					>
-						<div class="flex items-center justify-between whitespace-nowrap">
-							<h3 class="text-xs font-medium text-gray-500 truncate">{{ item.name }}</h3>
-							<Badge :variant="'outline'"
-								:theme="getStatusColor(item.status)">
-								{{ item.status }}
-							</Badge>
+						<div class="hc-appt-inner">
+							<!-- Practitioner (name gets the full width) -->
+							<div class="flex items-center gap-3">
+								<img
+									v-if="item.practitioner_image"
+									:src="item.practitioner_image"
+									class="hc-avatar"
+									alt=""
+								/>
+								<div v-else class="hc-avatar hc-avatar--ph">
+									{{ (item.practitioner_name || '?').charAt(0).toUpperCase() }}
+								</div>
+								<div class="min-w-0 flex-1">
+									<p class="text-sm font-semibold text-gray-900 truncate leading-tight">
+										{{ item.practitioner_name || item.title }}
+									</p>
+									<p v-if="item.department" class="text-xs text-gray-500 truncate">
+										{{ __(item.department) }}
+									</p>
+								</div>
+							</div>
+
+							<!-- When -->
+							<div class="hc-when">
+								<div class="hc-when-row">
+									<FeatherIcon name="calendar" class="ft w-3.5 h-3.5" />
+									<span class="hc-when-date">{{ formatDate(item.appointment_date) }}</span>
+								</div>
+								<div class="hc-when-row">
+									<FeatherIcon name="clock" class="ft w-3.5 h-3.5" />
+									<span>{{ item.appointment_time }} · {{ item.duration }} {{ __('mins') }}</span>
+								</div>
+							</div>
+
+							<!-- Footer: appointment id + status -->
+							<div class="hc-appt-foot flex items-center justify-between gap-2">
+								<span class="hc-chip truncate">
+									<span class="hc-status-dot" :style="{ background: statusAccent(item.status) }"></span>
+									{{ item.name }}
+								</span>
+								<Badge :variant="'subtle'" :theme="getStatusColor(item.status)">
+									{{ __(item.status) }}
+								</Badge>
+							</div>
 						</div>
-
-						<p class="mt-2 text-md font-semibold text-gray-800 truncate">
-							{{ item.title }}
-						</p>
-
-						<p class="mt-1 mb-1 text-xs text-gray-600 leading-snug break-words whitespace-normal">
-							<FeatherIcon name="calendar" class="inline w-3 h-3 mr-1 text-gray-500" />
-							{{ formatDate(item.appointment_date) }}
-						</p>
-						<p class="mt-1 text-xs text-gray-600 whitespace-nowrap">
-							<FeatherIcon name="clock" class="inline w-3 h-3 mr-1 text-gray-500" />
-							{{ item.appointment_time }} ({{ item.duration }} mins)
-						</p>
 					</Card>
 				</div>
 			</div>
@@ -54,22 +79,22 @@
 				class="flex flex-col items-center justify-center flex-grow text-center p-6"
 			>
 				<FeatherIcon name="file-text" class="w-12 h-12 text-gray-400 mb-3" />
-				<h2 class="text-lg font-semibold text-gray-700">No Records Found</h2>
-				<p class="text-sm text-gray-500">Looks like you don't have any appointments yet.</p>
+				<h2 class="text-lg font-semibold text-gray-700">{{ __('No Records Found') }}</h2>
+				<p class="text-sm text-gray-500">{{ __("Looks like you don't have any appointments yet.") }}</p>
 			</div>
 
 			<!-- Pagination -->
 			<div v-if="paginatedAppointments.length" class="flex justify-center items-center space-x-2 mt-auto pt-2">
 				<Button variant="subtle" :disabled="currentPage === 1" @click="currentPage--">
-					Prev
+					{{ __('Prev') }}
 				</Button>
 
 				<span class="text-sm text-gray-600">
-					Page {{ currentPage }} of {{ totalPages }}
+					{{ __('Page {0} of {1}', [currentPage, totalPages]) }}
 				</span>
 
 				<Button variant="subtle" :disabled="currentPage === totalPages" @click="currentPage++">
-					Next
+					{{ __('Next') }}
 				</Button>
 			</div>
 		</div>
@@ -86,7 +111,7 @@
 	}">
 		<template #body-title>
 			<div>
-				<h2 class="text-xl font-semibold text-gray-900">Appointment Details</h2>
+				<h2 class="text-xl font-semibold text-brand">{{ __('Appointment Details') }}</h2>
 			</div>
 			<div class="py-2 flex items-center justify-between gap-2">
 				<p class="text-sm text-gray-500"># {{ selectedAppointment.name }}</p>
@@ -94,7 +119,7 @@
 					:variant="'outline'"
 					size="sm"
 					:theme="getStatusColor(selectedAppointment.status)">
-					{{ selectedAppointment.status }}
+					{{ __(selectedAppointment.status) }}
 				</Badge>
 			</div>
 		</template>
@@ -110,7 +135,7 @@
 								{{ selectedAppointment.patient_name?.charAt(0)?.toUpperCase() }}
 							</div>
 							<div>
-								<h3 class="text-gray-700 font-medium">Patient</h3>
+								<h3 class="text-brand font-semibold">{{ __('Patient') }}</h3>
 								<p class="mt-1 text-lg font-semibold text-gray-900">
 									{{ selectedAppointment.patient_name }}
 								</p>
@@ -123,12 +148,12 @@
 
 					<section class="md:col-start-2 md:row-start-1">
 						<div>
-							<h3 class="text-gray-700 font-medium">When</h3>
+							<h3 class="text-brand font-semibold">{{ __('When') }}</h3>
 							<p class="mt-1 text-lg font-semibold text-gray-900">
 								{{ formatDate(selectedAppointment.appointment_date) }}
 							</p>
 							<p class="mt-1 text-sm text-gray-600">
-								{{ selectedAppointment.appointment_time }} ({{ selectedAppointment.duration }} mins)
+								{{ selectedAppointment.appointment_time }} ({{ selectedAppointment.duration }} {{ __('mins') }})
 							</p>
 						</div>
 					</section>
@@ -143,7 +168,7 @@
 								{{ selectedAppointment.practitioner_name?.charAt(0)?.toUpperCase() }}
 							</div>
 							<div>
-								<h3 class="text-gray-700 font-medium">Practitioner</h3>
+								<h3 class="text-brand font-semibold">{{ __('Practitioner') }}</h3>
 								<p class="mt-1 text-lg font-semibold text-gray-900">
 									{{ selectedAppointment.practitioner_name }}
 								</p>
@@ -157,15 +182,15 @@
 					<section class="md:col-start-2 md:row-start-2">
 						<div>
 							<div class="flex items-center justify-between">
-								<h3 class="text-gray-700 font-medium">Fee</h3>
+								<h3 class="text-brand font-semibold">{{ __('Fee') }}</h3>
 								<div class="flex items-center justify-between gap-2">
 									<Badge :variant="'outline'"
 										:theme="selectedAppointment.invoiced == 1 ? 'green' : 'red'">
-										{{ selectedAppointment.invoiced ? 'Paid' : 'Unpaid' }}
+										{{ selectedAppointment.invoiced ? __('Paid') : __('Unpaid') }}
 									</Badge>
 									<Button v-if="selectedAppointment.ref_sales_invoice" :ref_for="true" theme="gray" size="md"
 										@click="print('Sales Invoice', selectedAppointment.ref_sales_invoice)">
-										<Tooltip :text="'Print Invoice'" placement="top">
+										<Tooltip :text="__('Print Invoice')" placement="top">
 											<slot name="icon">
 												<FeatherIcon :name="'printer'" class="size-4 text-ink-white-7" />
 											</slot>
@@ -186,14 +211,14 @@
 						<div class="flex items-start gap-4 px-2">
 							<div class="w-20"></div>
 							<div>
-								<h3 class="text-gray-700 font-medium">Prescription ID</h3>
+								<h3 class="text-brand font-semibold">{{ __('Prescription ID') }}</h3>
 								<div class="flex items-center justify-between gap-10">
 									<p class="mt-1 text-lg font-semibold text-gray-900">
 										{{ selectedAppointment.encounter }}
 									</p>
 									<Button :ref_for="true" theme="gray" size="md"
 										@click="print('Patient Encounter', selectedAppointment.encounter)">
-										<Tooltip :text="'Print Prescription'" placement="top">
+										<Tooltip :text="__('Print Prescription')" placement="top">
 											<slot name="icon">
 												<FeatherIcon :name="'printer'" class="size-4 text-ink-white-7" />
 											</slot>
@@ -218,7 +243,7 @@
 		},
 		actions: [
 			{
-				label: 'OK',
+				label: __('OK'),
 				variant: 'solid',
 			},
 		],
@@ -229,6 +254,7 @@
 import { ref, computed } from 'vue'
 import BookAppointmentModel from '@/components/BookAppointmentModel.vue'
 import { formatCurrency } from "@/utils/formatters"
+import { translate as __ } from '@/translation'
 
 import {
 	createResource,
@@ -261,7 +287,7 @@ let get_appointments = createResource({
 	},
 	onError(error) {
 		dialog_message = error.messages?.[0] || error;
-		dialog_title = "Failed to load appointments";
+		dialog_title = __("Failed to load appointments");
 		alert_dialog.value = true;
 	}
 });
@@ -314,7 +340,7 @@ function print(doctype, docname) {
 				);
 
 				if (!w) {
-					alert("Please enable pop-ups");
+					alert(__("Please enable pop-ups"));
 					return;
 				}
 			}
@@ -357,5 +383,17 @@ const getStatusColor = (status) => {
 		default:
 			return "gray"
 	}
+}
+
+// Accent colour (CSS) mirroring the status theme, for the card's left bar / dot.
+const statusAccent = (status) => {
+	const map = {
+		green: "var(--st-green)",
+		orange: "var(--st-orange)",
+		red: "var(--st-red)",
+		blue: "var(--st-blue)",
+		gray: "var(--st-gray)",
+	}
+	return map[getStatusColor(status)] || "var(--hc-primary)"
 }
 </script>

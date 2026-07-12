@@ -1,12 +1,19 @@
 <template>
 	<div class="w-full h-full">
+		<div v-if="brand.name || brand.logo" class="hc-brand-header">
+			<img v-if="brand.logo" :src="brand.logo" class="hc-brand-logo" alt="logo" />
+			<div>
+				<div class="hc-brand-name">{{ brand.name || __('Patient Portal') }}</div>
+				<div class="hc-brand-sub">{{ __('Patient Portal') }}</div>
+			</div>
+		</div>
 		<div>
 			<Tabs as="div" v-model="portal_tabs" :tabs="tabs">
 				<template #tab-panel="{ tab }">
-					<div v-if="tab.label == 'Appointments'">
+					<div v-if="tab.key == 'appointments'">
 						<AppointmentModel />
 					</div>
-					<div v-else-if="tab.label == 'Diagnostics'">
+					<div v-else-if="tab.key == 'diagnostics'">
 						<DiagnosticModel />
 					</div>
 				</template>
@@ -24,7 +31,7 @@
 		},
 		actions: [
 			{
-				label: 'OK',
+				label: __('OK'),
 				variant: 'solid',
 			},
 		],
@@ -35,6 +42,8 @@
 import { ref, computed } from 'vue'
 import AppointmentModel from '@/components/AppointmentModel.vue'
 import DiagnosticModel from '@/components/DiagnosticModel.vue'
+import { translate as __ } from '@/translation'
+import { brand } from '@/branding'
 
 import {
 	createResource,
@@ -63,9 +72,9 @@ let getHealthcareSettings = createResource({
 getHealthcareSettings.fetch();
 
 const tabs = computed(() => {
-	let baseTabs = [{ label: 'Appointments' }]
+	let baseTabs = [{ key: 'appointments', label: __('Appointments') }]
 	if (healthcareSettings.value.show_diagnostics_tab) {
-		baseTabs.push({ label: 'Diagnostics' })
+		baseTabs.push({ key: 'diagnostics', label: __('Diagnostics') })
 	}
 	return baseTabs
 })
@@ -80,7 +89,7 @@ let set_logged_in_patient = createResource({
 	},
 	onError(error) {
 		dialog_message = error.messages?.[0] || error;
-		dialog_title = "Failed to load appointments";
+		dialog_title = __("Failed to load appointments");
 		alert_dialog.value = true;
 	}
 });

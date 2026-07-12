@@ -3,7 +3,7 @@
 		size: '6xl',
 	}" :disable-outside-click-to-close="true">
 		<template #body-title>
-			<h3 class="text-ink-gray-8">Book an Appointment</h3>
+			<h3 class="text-brand font-semibold">{{ __('Book an Appointment') }}</h3>
 		</template>
 		<template #body-content>
 			<div class="flex flex-col h-[65vh] border-b">
@@ -64,7 +64,7 @@
 
 							<div class="flex items-center w-full py-5">
 								<div class="flex-grow border-t border-gray-200"></div>
-								<span class="mx-3 text-xs text-gray-400 uppercase tracking-wider">For Patient</span>
+								<span class="mx-3 text-xs text-brand font-semibold uppercase tracking-wider">{{ __('For Patient') }}</span>
 								<div class="flex-grow border-t border-gray-200"></div>
 							</div>
 
@@ -73,7 +73,7 @@
 									v-model="selectedPatient"
 									type="autocomplete"
 									:options="patientOptions"
-									:placeholder="'Choose a patient'"
+									:placeholder="__('Choose a patient')"
 									size="lg"
 									:disabled="patientOptions.length == 1"
 								/>
@@ -82,14 +82,14 @@
 
 						<div class="py-2 flex items-center justify-center h-full min-h-[350px] border-r">
 							<div class="flex items-center justify-center">
-								<Calendar v-model:selectedDate="selectedDate" class="max-w-md scale-110" />
+								<Calendar v-model:selectedDate="selectedDate" :availableWeekdays="availableWeekdays" class="max-w-md scale-110" />
 							</div>
 						</div>
 
 						<div class="flex flex-col items-center justify-center h-full min-h-[350px]">
 							<div class="flex flex-col items-center justify-center w-full max-w-md">
 								<div v-if="slots && slots.length > 0" class="flex flex-col items-center py-3 px-4">
-									<h3 class="text-md font-semibold mb-3 text-center">Available Slots</h3>
+									<h3 class="text-md font-semibold mb-3 text-center text-brand">{{ __('Available Slots') }}</h3>
 									<div class="flex justify-center mb-2 w-full">
 										<Select
 											:options="timezones"
@@ -100,26 +100,21 @@
 								</div>
 
 								<div v-else class="flex items-center justify-center text-gray-500 text-sm h-24">
-									No slots available
+									{{ __('No slots available') }}
 								</div>
 
 								<!-- Scrollable slots list -->
 								<div v-if="slots && slots.length > 0" class="overflow-y-auto max-h-80 px-4 py-2 w-full">
 									<div v-for="(group, label) in groupedSlots" :key="label">
 										<div v-if="group && group.length > 0" class="mb-4">
-											<h4 class="text-sm font-medium text-gray-600 mb-2">{{ label }}</h4>
+											<h4 class="text-sm font-medium text-gray-600 mb-2">{{ __(label) }}</h4>
 											<div class="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-2">
 												<Button
 													v-for="slot in group"
 													:key="slot.slot"
 													size="md"
 													:label="slot.formattedTime"
-													:class="[
-														selectedSlot?.slot == slot.slot
-														? 'bg-surface-gray-5 text-white'
-														: 'bg-surface-white hover:bg-surface-gray-4 border shadow-sm',
-														'rounded-lg shadow-sm'
-													]"
+													:class="['hc-slot', selectedSlot?.slot == slot.slot ? 'hc-slot--active' : '']"
 													@click="selectedSlot = slot"
 												/>
 											</div>
@@ -134,14 +129,14 @@
 							v-model:practitioner="selectedPractitioner.practitioner_name"
 							v-model:consultationFee="consultationFee"
 							v-model:currency="currency"
-							class="w-full h-full max-w-sm" 
+							class="w-full h-full max-w-sm"
 							@payment_success="() => success = true"
 						/>
 					</div>
 					<div v-if="success" class="flex flex-col items-center justify-center h-[99%] text-center space-y-4 animate-fade-in">
 						<FeatherIcon name="check-circle" class="text-green-500 w-20 h-20" />
-						<h2 class="text-xl font-semibold text-gray-800">Payment Successful</h2>
-						<p class="text-gray-600">Your appointment with {{ selectedPractitioner.practitioner_name }} has been confirmed.</p>
+						<h2 class="text-xl font-semibold text-brand">{{ __('Payment Successful') }}</h2>
+						<p class="text-gray-600">{{ __('Your appointment with {0} has been confirmed.', [selectedPractitioner.practitioner_name]) }}</p>
 					</div>
 				</div>
 				<div class="min-h-[10px]">
@@ -158,48 +153,52 @@
 					variant="subtle"
 					@click="goToPrevious()"
 				>
-					Previous
+					{{ __('Previous') }}
 				</Button>
 				<Button
 					v-if="!show_calendar && !booked && !success"
 					:disabled="!((selectedDepartment && !show_practitioners) || (selectedPractitioner && show_practitioners && !show_calendar && !booked))"
 					size="md"
 					variant="solid"
+				class="hc-btn-primary"
 					@click="goToNext()"
 				>
-					Next
+					{{ __('Next') }}
 				</Button>
 				<Button
 					v-if="show_calendar && !booked && !success"
 					:disabled="!(show_calendar && selectedSlot)"
 					size="md"
 					variant="solid"
+				class="hc-btn-primary"
 					:loading="bookingLoading"
 					@click="bookSlot()"
 				>
-					Book
+					{{ __('Book') }}
 				</Button>
 				<Button
 					v-if="booked && !success"
 					size="md"
 					variant="solid"
+				class="hc-btn-primary"
 					@click="generatePaymentLink()"
 				>
-					Pay
+					{{ __('Pay') }}
 				</Button>
 				<Button
 					v-if="success"
 					size="md"
 					variant="solid"
+				class="hc-btn-primary"
 					@click="reload_appointments"
 				>
-					Close
+					{{ __('Close') }}
 				</Button>
 			</div>
 		</template>
 	</Dialog>
 
-	<Dialog 
+	<Dialog
 		:options="{
 			title: dialog_title,
 			message: dialog_message,
@@ -210,7 +209,7 @@
 			},
 			actions: [
 				{
-					label: 'OK',
+					label: __('OK'),
 					variant: 'solid',
 				},
 			],
@@ -236,6 +235,7 @@ import DepartmentSelector from '@/components/DepartmentSelector.vue'
 import PractitionerSelector from '@/components/PractitionerSelector.vue'
 import Calendar from '@/components/Calendar.vue'
 import Payment from '@/components/Payment.vue'
+import { translate as __ } from '@/translation'
 
 const show = defineModel();
 const selectedTimezone = ref(Intl.DateTimeFormat().resolvedOptions().timeZone)
@@ -243,6 +243,7 @@ const selectedTimezone = ref(Intl.DateTimeFormat().resolvedOptions().timeZone)
 let departments = ref([]);
 let practitioners = ref([]);
 let slots = ref([]);
+let availableWeekdays = ref([]);
 const patientOptions = ref([])
 const selectedPatient = ref(JSON.parse(localStorage.getItem("patient")) || {})
 const selectedDepartment = ref(null);
@@ -377,6 +378,22 @@ function fetchPractitioners(deptName) {
 	get_practitioners.fetch();
 }
 
+function fetchAvailableWeekdays(practitionerName) {
+	availableWeekdays.value = [];
+	if (!practitionerName) return;
+	let get_weekdays = createResource({
+		url: "/api/method/healthcare.healthcare.api.patient_portal.get_available_weekdays",
+		method: "GET",
+		makeParams() {
+			return { practitioner: practitionerName };
+		},
+		onSuccess(response) {
+			availableWeekdays.value = response || [];
+		},
+	});
+	get_weekdays.fetch();
+}
+
 function fetchSlots(date) {
 	error.value = null;
 	let get_practitioners = createResource({
@@ -389,9 +406,9 @@ function fetchSlots(date) {
 			};
 		},
 		onSuccess(response) {
-			if (response) {
-				slots.value = response;
-			}
+			// Clear slots when the selected date has no availability
+			// (e.g. a day outside the practitioner's schedule).
+			slots.value = response || [];
 		},
 		onError(e) {
 			error.value = e.messages?.[0] || e;
@@ -442,6 +459,12 @@ async function bookSlot() {
 			onSuccess(response) {
 				if (response){
 					appointment.value = response;
+					// Le créneau vient d'être réservé : on le retire de la liste locale
+					// pour qu'il ne soit plus affiché ni re-sélectionnable (anti double-réservation).
+					if (selectedSlot.value?.slot) {
+						slots.value = slots.value.filter((s) => s !== selectedSlot.value.slot);
+					}
+					selectedSlot.value = null;
 					if (show_calendar.value && !booked.value) {
 						show_calendar.value = false
 						booked.value = true
@@ -496,6 +519,9 @@ function goToPrevious() {
 		show_calendar.value = true
 		booked.value = false
 		currentStep.value = intervalCount.value - 1
+		// Recharger les créneaux : le créneau réservé (et ceux pris entre-temps) ne doit plus apparaître.
+		selectedSlot.value = null
+		if (selectedDate.value) fetchSlots(selectedDate.value)
 	}
 };
 
@@ -507,6 +533,11 @@ watch(selectedDate, async (date) => {
 		slots.value = [];
 	}
 	get_fees(selectedPractitioner.value?.name, date)
+});
+
+// When a practitioner is (de)selected, refresh the schedule days highlighted in the calendar.
+watch(selectedPractitioner, (p) => {
+	fetchAvailableWeekdays(p?.name);
 });
 
 watch(selectedTimezone, async (timezone) => {

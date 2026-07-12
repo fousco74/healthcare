@@ -3,20 +3,228 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Use system fonts instead of Inter */
+/* ---- Healthcare design tokens (teal / emerald clinical palette) ---- */
 :root {
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+  --hc-primary: #0d9488;        /* teal-600 */
+  --hc-primary-dark: #0f766e;   /* teal-700 */
+  --hc-primary-light: #5eead4;  /* teal-300 */
+  --hc-primary-50: #f0fdfa;     /* teal-50  */
+  --hc-primary-100: #ccfbf1;    /* teal-100 */
+  --hc-accent: #0ea5e9;         /* sky-500  */
+  --hc-ink: #0f172a;            /* slate-900 */
+  --hc-muted: #64748b;          /* slate-500 */
+  --hc-surface: #ffffff;
+  --hc-bg: #f2f9f8;
+  --hc-border: #e2e8f0;
+  --hc-ring: rgba(13, 148, 136, 0.30);
+
+  /* Semantic status colours (appointment states) */
+  --st-green: #16a34a;
+  --st-orange: #ea9a1a;
+  --st-red: #e11d48;
+  --st-blue: #2563eb;
+  --st-gray: #94a3b8;
 }
 
 body {
   font-family: var(--font-sans);
+  background:
+    radial-gradient(1200px 400px at 100% -10%, #e6fffb 0%, transparent 60%),
+    radial-gradient(900px 400px at -10% 0%, #eef7ff 0%, transparent 55%),
+    var(--hc-bg);
+  color: var(--hc-ink);
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-in-out;
-}
+/* Fade-in */
+.animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Cards ---- */
+.hc-card {
+  background: var(--hc-surface);
+  border: 1px solid var(--hc-border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(13, 148, 136, 0.18);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.hc-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--hc-primary-light);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05), 0 16px 34px -14px rgba(13, 148, 136, 0.30);
+}
+.hc-card--selected {
+  border-color: var(--hc-primary);
+  box-shadow: 0 0 0 2px var(--hc-ring);
+}
+
+/* ---- Appointment card (rich) ---- */
+.hc-appt-card {
+  --accent: var(--hc-primary);
+  position: relative;
+  overflow: hidden;
+  padding: 0 !important;
+}
+.hc-appt-card::before {           /* status accent bar */
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: var(--accent);
+}
+.hc-appt-card::after {            /* faint corner wash in the accent hue */
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  border-radius: 9999px;
+  background: var(--accent);
+  opacity: .06;
+  pointer-events: none;
+}
+.hc-appt-inner { padding: 1rem 1rem 1rem 1.15rem; display: flex; flex-direction: column; height: 100%; }
+
+.hc-avatar {
+  height: 44px; width: 44px; flex: none;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--hc-primary-50);
+  box-shadow: 0 4px 12px -6px var(--hc-ring);
+}
+.hc-avatar--ph {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--hc-primary-dark);
+  font-weight: 700; font-size: 1.05rem;
+  border: 1px solid var(--hc-border);
+}
+
+.hc-when {
+  margin-top: .85rem;
+  background: linear-gradient(180deg, var(--hc-primary-50), #ffffff);
+  border: 1px solid var(--hc-border);
+  border-radius: .7rem;
+  padding: .55rem .7rem;
+  display: flex; flex-direction: column; gap: .25rem;
+}
+.hc-when-row { display: flex; align-items: center; gap: .45rem; font-size: .82rem; color: #334155; }
+.hc-when-row .ft { color: var(--hc-primary); flex: none; }
+.hc-when-date { font-weight: 600; color: var(--hc-ink); }
+
+.hc-chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .68rem; letter-spacing: .03em;
+  color: var(--hc-muted);
+  font-weight: 500;
+}
+.hc-appt-foot { margin-top: auto; padding-top: .7rem; }
+
+/* status dot used inside badges/eyebrow */
+.hc-status-dot { width: 7px; height: 7px; border-radius: 9999px; display: inline-block; }
+
+/* ---- Picker cards (department / practitioner): edge-to-edge media ---- */
+.hc-pick-media { position: relative; }
+.hc-pick-media img { display: block; transition: transform .35s ease; }
+.hc-pick-card:hover .hc-pick-media img { transform: scale(1.05); }
+.hc-pick-scrim {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 42px;
+  background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.16) 100%);
+  pointer-events: none;
+}
+.hc-pick-card.hc-card--selected .hc-pick-media::after {
+  content: ''; position: absolute; inset: 0;
+  box-shadow: inset 0 0 0 3px var(--hc-primary);
+}
+
+/* ---- Calendar day cells ---- */
+.hc-day { position: relative; }
+.hc-day--available::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px; height: 5px;
+  border-radius: 9999px;
+  background: var(--hc-primary);
+}
+.hc-day--today {
+  box-shadow: inset 0 0 0 2px var(--hc-primary-light);
+  color: var(--hc-primary-dark);
+}
+.hc-day--selected {
+  background: var(--hc-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 14px -4px var(--hc-ring);
+}
+.hc-day--selected.hc-day--available::after { background: #fff; }
+
+/* ---- Time slots ---- */
+.hc-slot {
+  border: 1px solid var(--hc-border);
+  background: #fff;
+  color: #334155;
+  border-radius: 0.6rem;
+  transition: all .12s ease;
+}
+.hc-slot:hover { background: var(--hc-primary-50); border-color: var(--hc-primary-light); }
+.hc-slot--active {
+  background: var(--hc-primary) !important;
+  border-color: var(--hc-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 14px -4px var(--hc-ring);
+}
+
+/* ---- Primary action buttons (tint frappe-ui solid buttons) ---- */
+.hc-btn-primary,
+.hc-btn-primary:not([disabled]) {
+  background: var(--hc-primary) !important;
+  color: #fff !important;
+}
+.hc-btn-primary:not([disabled]):hover { background: var(--hc-primary-dark) !important; }
+
+/* ---- Section pill / eyebrow ---- */
+.hc-eyebrow {
+  color: var(--hc-primary-dark);
+  letter-spacing: .08em;
+}
+
+/* ---- Brand-driven utilities (follow --hc-primary, re-themable per site) ---- */
+.text-brand { color: var(--hc-primary-dark) !important; }
+.bg-brand-dot { background: var(--hc-primary); }
+.hc-nav-btn { color: var(--hc-primary-dark); background: var(--hc-primary-50); }
+.hc-nav-btn:hover { background: var(--hc-primary-100); }
+.hc-day:not(.hc-day--selected):not(.cursor-not-allowed):hover { background: var(--hc-primary-50); }
+
+/* ---- Branded header (logo + name) ---- */
+.hc-brand-header {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .6rem 0 1.1rem;
+  margin-bottom: .4rem;
+  border-bottom: 1px solid var(--hc-border);
+}
+.hc-brand-logo {
+  height: 42px;
+  width: 42px;
+  border-radius: 11px;
+  object-fit: cover;
+  box-shadow: 0 6px 16px -4px var(--hc-ring);
+}
+.hc-brand-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--hc-primary-dark);
+  line-height: 1.1;
+}
+.hc-brand-sub {
+  font-size: .72rem;
+  color: var(--hc-muted);
+  letter-spacing: .04em;
 }

@@ -94,6 +94,27 @@ def get_settings():
 	return frappe.get_single("Healthcare Settings")
 
 
+@frappe.whitelist(allow_guest=True)
+def get_translations():
+	"""Return the translation messages for the current user's language,
+	so the patient portal SPA can localize its UI via __()."""
+	from frappe.translate import get_messages_for_boot
+
+	return get_messages_for_boot()
+
+
+@frappe.whitelist(allow_guest=True)
+def get_branding():
+	"""Per-site portal branding (name, logo, primary color) read from site_config.
+	Lets each site be branded independently without changing the shared app code.
+	Sites without these keys (e.g. marley) fall back to the default portal theme."""
+	return {
+		"name": frappe.conf.get("portal_brand_name"),
+		"logo": frappe.conf.get("portal_brand_logo"),
+		"color": frappe.conf.get("portal_brand_color"),
+	}
+
+
 @frappe.whitelist()
 def get_slots(practitioner, date):
 	date = getdate() if date in ["undefined", "", "null"] else getdate(date)
@@ -107,9 +128,14 @@ def get_slots(practitioner, date):
 		return {"status": "error", "message": "Cannot fetch slots for past dates."}
 
 	practitioner_doc = frappe.get_doc("Healthcare Practitioner", practitioner)
+	# Only count active bookings: a cancelled appointment frees its slot again.
 	curr_bookings = frappe.db.get_all(
 		"Patient Appointment",
-		filters={"practitioner": practitioner_doc.name, "appointment_date": date},
+		filters={
+			"practitioner": practitioner_doc.name,
+			"appointment_date": date,
+			"status": ["!=", "Cancelled"],
+		},
 		pluck="appointment_time",
 	)
 	booked_slots = [(datetime.min + booked_slot).time() for booked_slot in curr_bookings]
@@ -139,6 +165,27 @@ def get_slots(practitioner, date):
 		full_slots = list(sorted(full_slots))
 
 	return full_slots if len(full_slots) > 0 else None
+
+
+@frappe.whitelist()
+def get_available_weekdays(practitioner):
+	"""Return the list of weekday names (e.g. ["Monday", "Wednesday"]) on which the
+	practitioner has at least one active schedule slot. Used by the portal calendar
+	to highlight the days a patient can actually book."""
+	practitioner = None if practitioner in ["undefined", "", "null"] else practitioner
+	if not practitioner:
+		return []
+
+	practitioner_doc = frappe.get_doc("Healthcare Practitioner", practitioner)
+	weekdays = set()
+	for schedule_entry in practitioner_doc.practitioner_schedules:
+		schedule = frappe.get_doc("Practitioner Schedule", schedule_entry.schedule)
+		if schedule and not schedule.disabled:
+			for time_slot in schedule.time_slots:
+				if time_slot.day:
+					weekdays.add(time_slot.day)
+
+	return list(weekdays)
 
 
 @frappe.whitelist()
