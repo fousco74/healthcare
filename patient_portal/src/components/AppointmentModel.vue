@@ -350,7 +350,7 @@ function print(doctype, docname) {
 }
 
 function formatDate(dateStr) {
-	return new Date(dateStr).toLocaleDateString("en-IN", {
+	return new Date(dateStr).toLocaleDateString("fr-FR", {
 		weekday: "long",
 		year: "numeric",
 		month: "long",

@@ -74,7 +74,7 @@ const blanks = computed(() => {
 })
 
 const monthYear = computed(() => {
-	return `${new Date(currentYear.value, currentMonth.value).toLocaleString(undefined, { month: 'long' })} ${currentYear.value}`
+	return `${new Date(currentYear.value, currentMonth.value).toLocaleString('fr-FR', { month: 'long' })} ${currentYear.value}`
 })
 
 const isToday = (day) => {

@@ -252,7 +252,7 @@ function orderDetails(order) {
 }
 
 function formatDate(dateStr) {
-	return new Date(dateStr).toLocaleDateString("en-IN", {
+	return new Date(dateStr).toLocaleDateString("fr-FR", {
 		weekday: "long",
 		year: "numeric",
 		month: "long",
@@ -261,7 +261,7 @@ function formatDate(dateStr) {
 }
 
 function formatDateTime(dateStr) {
-	return new Date(dateStr).toLocaleString("en-IN", {
+	return new Date(dateStr).toLocaleString("fr-FR", {
 		year: "numeric",
 		month: "short",
 		day: "numeric",
