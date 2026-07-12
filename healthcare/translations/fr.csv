@@ -1,0 +1,76 @@
+Appointments,Rendez-vous
+Failed to load appointments,Échec du chargement des rendez-vous
+Select a Department,Choisir un service
+Select a Practitioner,Choisir un praticien
+Page {0} of {1},Page {0} sur {1}
+Su,Di
+Mo,Lu
+Tu,Ma
+We,Me
+Th,Je
+Fr,Ve
+Book an Appointment,Prendre un rendez-vous
+For Patient,Pour le patient
+Choose a patient,Choisir un patient
+Available Slots,Créneaux disponibles
+No slots available,Aucun créneau disponible
+Morning,Matin
+Afternoon,Après-midi
+Evening,Soir
+Payment Successful,Paiement réussi
+Your appointment with {0} has been confirmed.,Votre rendez-vous avec {0} a été confirmé.
+Previous,Précédent
+Next,Suivant
+Book,Réserver
+Pay,Payer
+Close,Fermer
+mins,min
+Pay Your Bill,Payer votre facture
+Details of fees,Détail des frais
+Consultation Fee,Frais de consultation
+Consultation with {0},Consultation avec {0}
+Registration Fee,Frais d'inscription
+One-time registration for new patients,Inscription unique pour les nouveaux patients
+No Records Found,Aucun enregistrement trouvé
+Looks like you don't have any appointments yet.,Vous n'avez pas encore de rendez-vous.
+Prev,Précédent
+Appointment Details,Détails du rendez-vous
+When,Quand
+Practitioner,Praticien
+Fee,Frais
+Paid,Payé
+Unpaid,Impayé
+Print Invoice,Imprimer la facture
+Prescription ID,N° de prescription
+Print Prescription,Imprimer la prescription
+Please enable pop-ups,Veuillez autoriser les fenêtres pop-up
+Scheduled,Planifié
+Confirmed,Confirmé
+Open,Ouvert
+Cancelled,Annulé
+Checked In,Enregistré
+Checked Out,Sorti
+Tests: {0},Analyses : {0}
+Practitioner: {0},Praticien : {0}
+Looks like you don’t have any orders yet.,Vous n'avez pas encore de demandes.
+Test Details,Détails de l'analyse
+Ordered by: {0},Prescrit par : {0}
+Order #:,N° de demande :
+Collection Point:,Point de prélèvement :
+Order Date:,Date de la demande :
+Test Report Details,Détails du compte-rendu
+Print Report,Imprimer le compte-rendu
+Pending,En attente
+Test,Analyse
+Result,Résultat
+Reference,Référence
+Collected On:,Prélevé le :
+Approved,Approuvé
+Not Approved,Non approuvé
+In Progress,En cours
+Collected,Prélevé
+Completed,Terminé
+Rejected,Rejeté
+Partly Paid,Partiellement payé
+Available days,Jours disponibles
+Patient Portal,Portail patient
