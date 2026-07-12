@@ -22,8 +22,13 @@ add_to_apps_screen = [
 # Includes in <head>
 # ------------------
 # include js, css files in header of desk.html
-# app_include_css = "/assets/healthcare/css/healthcare.css"
-app_include_js = "healthcare.bundle.js"
+app_include_css = "/assets/healthcare/css/starter_desk.css"
+app_include_js = [
+    "healthcare.bundle.js",
+    "/assets/healthcare/js/starter.js",
+]
+
+web_include_css = ["/assets/healthcare/css/starter_web.css"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/healthcare/css/healthcare.css"
@@ -44,7 +49,6 @@ doctype_js = {
     "Sales Invoice": "public/js/sales_invoice.js",
     "User": "public/js/user.js"
 }
-
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
