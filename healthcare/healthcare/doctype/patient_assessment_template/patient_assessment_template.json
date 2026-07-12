@@ -61,7 +61,7 @@
   }
  ],
  "links": [],
- "modified": "2025-12-25 09:36:37.782086",
+ "modified": "2026-07-12 10:45:36.939998",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Assessment Template",
@@ -101,6 +101,14 @@
    "role": "Physician",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Nursing User",
+   "share": 1
   }
  ],
  "row_format": "Dynamic",

@@ -23,7 +23,7 @@
   }
  ],
  "links": [],
- "modified": "2025-12-25 09:36:43.421793",
+ "modified": "2026-07-12 10:45:36.927292",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Dosage Form",
@@ -52,6 +52,14 @@
    "role": "Healthcare Administrator",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Nursing User",
+   "share": 1
   }
  ],
  "quick_entry": 1,

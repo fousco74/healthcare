@@ -29,7 +29,7 @@
   }
  ],
  "links": [],
- "modified": "2025-12-25 09:36:41.273865",
+ "modified": "2026-07-12 10:45:36.923274",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Antibiotic",
@@ -54,6 +54,14 @@
    "read": 1,
    "report": 1,
    "role": "Laboratory User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Physician",
    "share": 1
   }
  ],

@@ -55,7 +55,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-25 09:36:44.003810",
+ "modified": "2026-07-12 10:45:36.935845",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Nursing Checklist Template",
@@ -85,6 +85,22 @@
    "role": "Healthcare Administrator",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Physician",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Nursing User",
+   "share": 1
   }
  ],
  "row_format": "Dynamic",

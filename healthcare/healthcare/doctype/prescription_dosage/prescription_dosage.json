@@ -28,7 +28,7 @@
   }
  ],
  "links": [],
- "modified": "2025-12-25 09:36:45.194373",
+ "modified": "2026-07-12 10:45:36.942821",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Prescription Dosage",
@@ -57,6 +57,14 @@
    "role": "Physician",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Nursing User",
+   "share": 1
   }
  ],
  "restrict_to_domain": "Healthcare",

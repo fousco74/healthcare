@@ -428,7 +428,7 @@
    "link_fieldname": "practitioner"
   }
  ],
- "modified": "2026-07-10 16:09:49.162463",
+ "modified": "2026-07-12 10:45:36.929070",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare Practitioner",
@@ -438,6 +438,7 @@
   {
    "create": 1,
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -469,6 +470,18 @@
    "report": 1,
    "role": "Nursing User",
    "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Healthcare Administrator",
    "share": 1,
    "write": 1
   }

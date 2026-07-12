@@ -395,9 +395,9 @@
   {
    "fieldname": "sales_invoice_status",
    "fieldtype": "Data",
+   "is_virtual": 1,
    "label": "Sales Invoice Status",
-   "read_only": 1,
-   "is_virtual": 1
+   "read_only": 1
   },
   {
    "fieldname": "column_break_zrac",
@@ -586,7 +586,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-06-17 18:11:51.318190",
+ "modified": "2026-07-12 10:45:36.936725",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Observation",
@@ -608,6 +608,7 @@
    "write": 1
   },
   {
+   "amend": 1,
    "cancel": 1,
    "create": 1,
    "delete": 1,
@@ -658,6 +659,20 @@
    "read": 1,
    "report": 1,
    "role": "Nursing User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Laboratory User",
    "share": 1,
    "submit": 1,
    "write": 1
