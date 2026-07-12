@@ -12,6 +12,16 @@ from healthcare.healthcare.doctype.observation.observation import get_observatio
 from healthcare.healthcare.utils import get_appointment_billing_item_and_rate
 
 
+@frappe.whitelist(allow_guest=True)
+def get_csrf_token():
+	"""Return the current session's CSRF token.
+
+	The portal SPA fetches this at startup and stores it in window.csrf_token,
+	so POST requests carry a valid X-Frappe-CSRF-Token regardless of how the
+	page HTML is served (static build vs Jinja-rendered www page)."""
+	return frappe.sessions.get_csrf_token()
+
+
 @frappe.whitelist()
 def get_appointments():
 	patients = get_patients_with_relations()

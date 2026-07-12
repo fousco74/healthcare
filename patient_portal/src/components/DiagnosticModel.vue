@@ -282,15 +282,21 @@ const paginatedOrders = computed(() => {
 });
 
 function print(doctype, docname) {
+	// invoice is a list, diagnostic_report a single value — resolve to one name.
+	// Guard against an empty value (empty array is truthy!) so we don't send a
+	// broken request when the invoice / report doesn't exist yet.
+	const printName = Array.isArray(docname) ? docname[0] : docname;
+	if (!printName) {
+		alert(__("This document is not available yet."));
+		return;
+	}
 	let get_print_format = createResource({
 		url: "/api/method/healthcare.healthcare.api.patient_portal.get_print_format",
 		method: "POST",
 		makeParams() {
 			return {
 				doctype: doctype,
-				name: Array.isArray(docname)
-					? docname[0]
-					: docname
+				name: printName
 			}
 		},
 		onSuccess(response) {
